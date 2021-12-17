@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {{#if page_title}}<title>{{page_title}}</title>{{else}}Home{{/if}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="new/creative-tim.css">
+    {{#unless new_css}}<link rel="stylesheet" href="new/creative-tim-2.css"> {{/unless}}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&subset=latin-ext">
+<!--    {>meta_tags}}-->
+</head>
+<body>
+<div id="wrapper">
+    {{#unless no_navbar}}
+        {{>navbar}}
+    {{/unless}}
+
+    {{{body}}}
+<!--    {>footer}}-->
+</div>
+<!-- Wrapper / End -->
+{{#unless user}}
+<!--    {>signin_up}}-->
+{{/unless}}
+<script src="new/creative-tim.js"></script>
+{{#unless new_css}}<script src="new/creative-tim-2.js"></script>{{/unless}}
+{{#if new_css}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.6/web3.min.js" integrity="sha512-jMEcX0Bev3VsCrACqEM3BFZvAMFXJSuTsMu0SttkAdMjquip6p3Oty5bbXrfg4T8n4g5BQYkGKxzLsrSqQgLUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        var web3 = new Web3(Web3.givenProvider);
+
+        var instance;
+        var user;
+
+        $(document).ready(function (){
+            window.ethereum.enable().then(function (accounts) {
+                // instance = new web3.eth.Contract(abi, contractAddress, {from: accounts[0]});
+                user = accounts[0];
+                $('#block_address').val(accounts[0])
+            })
+        });
+    </script>
+
+{{/if}}
+{{#if message_info}}<script>Snackbar.show({text: "{{message_info}}", pos: 'bottom-center', showAction: true, actionText: "Dismiss", actionTextColor: '#ff0000', duration: 6000, textColor: '#fff', backgroundColor: '#383838'});</script>{{/if}}
+</body>
+</html>
